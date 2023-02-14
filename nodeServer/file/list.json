@@ -1,0 +1,82 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "title": "AQUIS WAFFLE Pro华夫系列干发帽 超吸水快干，稳稳包裹不勒头发，无异味不发霉，经久耐用",
+      "img": "http://127.0.0.1:8090/img1.JPG",
+      "price": 298,
+      "prePrice": null,
+      "people": null,
+      "adjective": "满376减20",
+      "isGroup": true,
+      "unit": null,
+      "isDou": false
+    },
+    {
+      "title": "约翰·伯格四部绘本合辑 约翰·伯格写给所有白内障患者的书",
+      "img": "http://127.0.0.1:8090/img2.JPG",
+      "price": 135,
+      "prePrice": null,
+      "people": null,
+      "adjective": null,
+      "isGroup": false,
+      "unit": null,
+      "isDou": false
+    },
+    {
+      "title": "豆瓣豆猫挂饰 可爱治愈 灵活百搭",
+      "img": "http://127.0.0.1:8090/img3.jpg",
+      "price": 39,
+      "prePrice": 29,
+      "people": 32000,
+      "adjective": "满2件赠",
+      "isGroup": false,
+      "unit": "对",
+      "isDou": true
+    },
+    {
+      "title": "豆猫彩袜 舒适柔软，温暖随行",
+      "img": "http://127.0.0.1:8090/img4.JPG",
+      "price": 39,
+      "prePrice": null,
+      "people": 109000,
+      "adjective": "满2件赠",
+      "isGroup": false,
+      "unit": "盒",
+      "isDou": true
+    },
+    {
+      "title": "躺岛鸡腿睡姿辅助抱枕 给好好睡觉的你加鸡腿",
+      "img": "http://127.0.0.1:8090/img5.JPG",
+      "price": 219,
+      "prePrice": 199,
+      "people": 5808,
+      "adjective": "立减20元",
+      "isGroup": false,
+      "unit": "个",
+      "isDou": false
+    },
+    {
+      "title": "繁象绿松石宝石珍珠手链 天然宝石装点腕间 天然淡水珍珠+绿松石+红玛瑙+黄玉交相辉映，寓意\"幸运、爱情与财富\"",
+      "img": "http://127.0.0.1:8090/img6.jpg",
+      "price": 168,
+      "prePrice": null,
+      "people": 2291,
+      "adjective": null,
+      "isGroup": false,
+      "unit": "件",
+      "isDou": false
+    },
+    {
+      "title": "豆猫电影手办·第三弹 把电影变成留在身边的喜欢",
+      "img": "http://127.0.0.1:8090/img7.jpeg",
+      "price": 69,
+      "prePrice": 59,
+      "people": 88902,
+      "adjective": "立减10元",
+      "isGroup": false,
+      "unit": "件",
+      "isDou": false
+    }
+  ]
+}
