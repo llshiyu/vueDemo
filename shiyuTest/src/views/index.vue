@@ -1,10 +1,10 @@
 <template>
   <div class="home-page">
     <Header></Header>
-    <div class="search-box">
-      <input type="text" class="search-input" v-model="searchItem">
-      <div @click="add" class="search-btn btn">新建</div>
-    </div>
+<!--    <div class="search-box">-->
+<!--      <input type="text" class="search-input" v-model="searchItem">-->
+<!--      <div @click="add" class="search-btn btn">新建</div>-->
+<!--    </div>-->
 
 
     <ul class="list-box">
@@ -18,19 +18,17 @@
         <img :src="item.img" alt="">
       </li>
     </ul>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
   import Header from '@/components/header.vue'
-  import Footer from '@/components/footer.vue'
 
   import list from '@/components/list.vue'
   import {getList} from '@/http/home'
 
   export default {
-    components: {Header, list, Footer},
+    components: {Header, list},
     data() {
       return {
         searchItem: '',
