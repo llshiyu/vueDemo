@@ -22,5 +22,6 @@
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 60px;
   }
 </style>

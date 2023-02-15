@@ -1,10 +1,12 @@
 <template>
   <div class="home-page">
-    <ul class="list-box">
-      <li v-for="(item,index) in listArr" :key="index">
-        <list :item="item" :index="index" @del="del(index)" @update="update(index)" @save="save(index)"></list>
-      </li>
-    </ul>
+    <h2 class="title">全部好物</h2>
+    <van-sticky :offset-top="60" class="state-box">
+      <div class="box clearfloat">
+        <div class="state fl" @click="stateClick(item)" :class="stateActive===item.key?'active':''" v-for="(item,index) in stateArr" :key="index">{{item.value}}</div>
+      </div>
+    </van-sticky>
+
 
     <ul class="list-box">
       <li v-for="(item,index) in listData" :key="index">
@@ -16,131 +18,84 @@
 
 <script>
   import list from '@/components/list.vue'
-  import {getList} from '@/http/home'
+  import {getList, getState} from '@/http/home'
 
   export default {
     components: {list},
     data() {
       return {
-        searchItem: '',
+        stateArr: [],
+        stateActive:1,
         listArr: [],
         listData: []
       }
     },
     mounted() {
       this.getListData()
+      this.getStateData()
     },
     methods: {
       getListData() {
         getList('', (res) => {
-          console.log(res);
           this.listData = res.data
         }, (err) => {
+          this.$toast.fail('网络异常，请稍后重试');
         })
       },
-
-      add() {
-        if (this.searchItem) {
-          this.listArr.push(
-            {
-              cont: this.searchItem,
-              isUpdate: false
-            }
-          );
-          this.searchItem = ''
-        } else {
-          this.$toast({
-            message: '请输入内容',
-            icon: 'fail'
-          });
-        }
+      getStateData(){
+        getState('', (res) => {
+          this.stateArr = res.data
+        }, (err) => {
+          this.$toast.fail('网络异常，请稍后重试');
+        })
       },
-      del(i) {
-        if (this.listArr[i]) this.listArr.splice(i, 1);
-        this.$toast.success('删除成功!');
-      },
-      update(i) {
-        this.listArr[i]['isUpdate'] = true
-      },
-      save(i) {
-        this.listArr[i]['isUpdate'] = false
-        this.$toast.success('保存成功!');
+      stateClick(item){
+        this.stateActive = item.key
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  img {
-    height: 100px;
-    width: 100px;
-  }
-
-  .list-box {
-    padding-top: 80px;
-  }
-
-
-  .btn {
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    display: inline-block;
-    border-radius: 4px;
-    margin-right: 20px;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    font-weight: 700;
-  }
-
-  .search-btn {
-    border: 1px solid #409EFF;
-    background-color: #409EFF;
-    color: #fff;
-  }
-
-  .del-btn {
-    border: 1px solid #333;
+  .home-page {
     background-color: #fff;
-    color: #333;
-  }
+    .title{
+      padding: 10px;
+      font-weight: 500;
+    }
+    .state-box {
+      background-color: #fff;
+      /*overflow-x: scroll;*/
+      min-width: 100%;
 
-  .save-btn {
-    border: 1px solid #67c23a;
-    background-color: #67c23a;
-    color: #fff;
-  }
+      .box {
+        padding: 10px 8px;
+        overflow-x: scroll;
+        min-width: 100%;
+        width: max-content;
 
-  .update-btn {
-    border: 1px solid #409EFF;
-    background-color: #409EFF;
-    color: #fff;
+        .state {
+          background-color: #f1f1f1;
+          color: #8a8a8a;
+          padding: 4px 10px;
+          margin-right: 10px;
+          border-radius: 4px;
+          &.active{
+            background-color: #fcf2e6;
+            color: #ff9a32;
+          }
+        }
+      }
+    }
   }
-
-  .home-page .list-box li {
-    list-style-type: none;
-    border: 1px solid #333;
-    margin: 10px;
-    padding: 20px;
-    text-align: left;
-    border-radius: 4px;
-  }
-
-  .home-page .list-box li .list-input {
-    min-width: 100px;
-    min-height: 30px;
-    line-height: 30px;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .home-page .list-box li .list-title {
-    min-width: 100px;
-    min-height: 30px;
-    line-height: 30px;
-    margin-bottom: 20px;
+</style>
+<style lang="less">
+  .home-page {
+    .state-box {
+      .van-sticky {
+        overflow-x: scroll;
+        background-color: #fff;
+      }
+    }
   }
 </style>

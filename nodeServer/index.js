@@ -13,10 +13,10 @@ server.on('request', (req, res) => {
     });
     const url = req.url;
     let pathUrl;
-    if (url === '/') {
-        pathUrl = path.join(__dirname, './file/list.json')
-    } else {
-        pathUrl = path.join(__dirname, './file', url)
+    switch (url) {
+        case('/getList'):pathUrl = path.join(__dirname, './file/list.json');break;
+        case('/getState'):pathUrl = path.join(__dirname, './file/state.json');break;
+        default:pathUrl = path.join(__dirname, './file/list.json');break;
     }
     optFile.readfile(pathUrl, (err, dataStr) => {
         if (err) return res.end('没有找到文件')
