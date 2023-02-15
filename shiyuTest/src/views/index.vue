@@ -15,8 +15,18 @@
         success-text="刷新成功"
         @refresh="onRefresh"
       >
-        <list-item :item="item" :index="index" v-for="(item,index) in listData" :key="index"></list-item>
+        <list-item :item="item" :index="index" v-for="(item,index) in listData" :key="index"
+                   @addCar="addCar"></list-item>
       </van-pull-refresh>
+    </div>
+
+    <div class="float-car-box" @click="goCar">
+      <div class="car-box">
+        <van-badge :content="carNumber" max="99" v-if="carNumber">
+          <van-icon name="shopping-cart-o"/>
+        </van-badge>
+        <van-icon name="shopping-cart-o" v-else/>
+      </div>
     </div>
   </div>
 </template>
@@ -33,8 +43,8 @@
         stateActive: 1,
         listArr: [],
         listData: [],
-        isLoading:false,
-
+        isLoading: false,
+        carNumber: 0
       }
     },
     mounted() {
@@ -45,6 +55,7 @@
       getListData() {
         getList({}, (res) => {
           this.listData = res.data
+          this.isLoading = false
         }, (err) => {
           this.$toast.fail('网络异常，请稍后重试');
         })
@@ -60,9 +71,15 @@
         this.stateActive = item.key;
         this.getListData();
       },
-      onRefresh(){
-
+      onRefresh() {
+        this.getListData()
       },
+      goCar() {
+        this.$toast.fail('网站建设中');
+      },
+      addCar(item) {
+        this.carNumber++
+      }
     }
   }
 </script>
@@ -88,9 +105,11 @@
         width: max-content;
         scrollbar-width: none; /* firefox */
         -ms-overflow-style: none; /* IE 10+ */
+
         &::-webkit-scrollbar {
           display: none; /* Chrome Safari */
         }
+
         .state {
           background-color: #f1f1f1;
           color: #8a8a8a;
@@ -105,13 +124,34 @@
         }
       }
     }
-    .list-box{
+
+    .list-box {
       padding: 10px 0;
       position: relative;
       width: 100%;
-      .van-pull-refresh{
+
+      .van-pull-refresh {
         /*min-height: 200vh;*/
       }
+    }
+
+    .float-car-box {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 100%;
+      width: 70px;
+      height: 70px;
+      line-height: 70px;
+      box-shadow: 2px 2px 2px #a0a2a8;
+
+      .car-box {
+        text-align: center;
+        font-size: 40px;
+        color: #0b090a;
+      }
+
     }
   }
 </style>
@@ -121,6 +161,14 @@
       .van-sticky {
         overflow-x: scroll;
         background-color: #fff;
+      }
+    }
+
+    .float-car-box {
+      .van-badge {
+        font-size: 18px;
+        min-width: 20px;
+        top: 10px;
       }
     }
   }

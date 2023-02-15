@@ -20,7 +20,7 @@
         class="price">{{item.prePrice||item.price}}</span><span
         class="unit" v-if="item.unit">/{{item.unit}}</span><span
         class="old-price" v-if="item.prePrice">￥{{item.price}}</span></div>
-      <div class="right fr">
+      <div class="right fr" @click="addCar(item)">
         <div class="img-box"><img src="../assets/img/icon/car.png" alt=""></div>
       </div>
     </div>
@@ -98,6 +98,9 @@
         }
         wrapIdNameDom.querySelector('.van-pull-refresh').style.height = lineConentHeightList[contentList.length-1]+'px'
       },
+      addCar(item){
+        this.$emit('addCar',item)
+      }
     }
   }
 </script>
