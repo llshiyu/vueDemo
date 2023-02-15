@@ -59,6 +59,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 99;
 
     .header-row {
       .van-col {
@@ -84,7 +85,7 @@
           height: 40px;
           line-height: 40px;
           color: #9ea39d;
-          font-size: 18px;
+          font-size: 16px;
           text-align: center;
           display: flex;
           justify-content: center;
@@ -94,8 +95,8 @@
             top: 4px;
           }
           img{
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             padding-top: 5px;
           }
           span {

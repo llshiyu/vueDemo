@@ -41,7 +41,9 @@ Vue.use(Toast)
   .use(Loading)
   .use(PullRefresh)
   .use(Badge)
-  .use(Lazyload)
+  .use(Lazyload, {
+    lazyComponent: true,
+  })
   .use(List)
   .use(Skeleton)
   .use(Sticky)

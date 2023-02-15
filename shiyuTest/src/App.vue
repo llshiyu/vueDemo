@@ -20,8 +20,7 @@
   #app {
     min-height: 100vh;
     overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 60px;
+    margin: 60px auto 70px;
+    background-color: #fff;
   }
 </style>

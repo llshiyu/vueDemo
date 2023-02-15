@@ -1,42 +1,39 @@
 <template>
-  <div class="footer-box">
-    <van-tabbar v-model="active" active-color="#67b750" inactive-color="#878687" @change="onChange">
-      <van-tabbar-item name="home">
-        <span>首页</span>
-        <template #icon="props">
-          <img :src="props.active ? home.active : home.inactive"/>
-        </template>
-      </van-tabbar-item>
-      <van-tabbar-item name="video">
-        <span>书影音</span>
-        <template #icon="props">
-          <img :src="props.active ? video.active : video.inactive"/>
-        </template>
-      </van-tabbar-item>
-      <van-tabbar-item name="group">
-        <span>小组</span>
-        <template #icon="props">
-          <img :src="props.active ? group.active : group.inactive"/>
-        </template>
-      </van-tabbar-item>
-      <van-tabbar-item name="list">
-        <span>市集</span>
-        <template #icon="props">
-          <img :src="props.active ? list.active : list.inactive"/>
-        </template>
-      </van-tabbar-item>
-      <van-tabbar-item name="my">
-        <span>我</span>
-        <template #icon="props">
-          <img :src="props.active ? my.active : my.inactive"/>
-        </template>
-      </van-tabbar-item>
-    </van-tabbar>
-  </div>
+  <van-tabbar v-model="active" active-color="#67b750" class="footer-box" inactive-color="#878687" @change="onChange">
+    <van-tabbar-item name="home">
+      <span>首页</span>
+      <template #icon="props">
+        <img :src="props.active ? home.active : home.inactive"/>
+      </template>
+    </van-tabbar-item>
+    <van-tabbar-item name="video">
+      <span>书影音</span>
+      <template #icon="props">
+        <img :src="props.active ? video.active : video.inactive"/>
+      </template>
+    </van-tabbar-item>
+    <van-tabbar-item name="group">
+      <span>小组</span>
+      <template #icon="props">
+        <img :src="props.active ? group.active : group.inactive"/>
+      </template>
+    </van-tabbar-item>
+    <van-tabbar-item name="list">
+      <span>市集</span>
+      <template #icon="props">
+        <img :src="props.active ? list.active : list.inactive"/>
+      </template>
+    </van-tabbar-item>
+    <van-tabbar-item name="my">
+      <span>我</span>
+      <template #icon="props">
+        <img :src="props.active ? my.active : my.inactive"/>
+      </template>
+    </van-tabbar-item>
+  </van-tabbar>
 </template>
 
 <script>
-
   export default {
     data() {
       return {
@@ -76,10 +73,8 @@
 </script>
 
 <style lang="less" scoped>
-  .footer-box {
-    .van-tabbar {
-      height: 70px;
-    }
+  .van-tabbar.footer-box {
+    height: 70px;
 
     .van-tabbar-item {
       font-size: 12px;
@@ -94,6 +89,8 @@
       }
     }
   }
+
+
 </style>
 <style lang="less">
   .footer-box {
