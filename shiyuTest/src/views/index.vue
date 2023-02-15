@@ -1,12 +1,5 @@
 <template>
   <div class="home-page">
-    <Header></Header>
-<!--    <div class="search-box">-->
-<!--      <input type="text" class="search-input" v-model="searchItem">-->
-<!--      <div @click="add" class="search-btn btn">新建</div>-->
-<!--    </div>-->
-
-
     <ul class="list-box">
       <li v-for="(item,index) in listArr" :key="index">
         <list :item="item" :index="index" @del="del(index)" @update="update(index)" @save="save(index)"></list>
@@ -22,13 +15,11 @@
 </template>
 
 <script>
-  import Header from '@/components/header.vue'
-
   import list from '@/components/list.vue'
   import {getList} from '@/http/home'
 
   export default {
-    components: {Header, list},
+    components: {list},
     data() {
       return {
         searchItem: '',
@@ -79,7 +70,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   img {
     height: 100px;
     width: 100px;
@@ -89,15 +80,6 @@
     padding-top: 80px;
   }
 
-  .search-box {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #fff;
-    height: 70px;
-    line-height: 70px;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.08);
-  }
 
   .btn {
     width: 60px;

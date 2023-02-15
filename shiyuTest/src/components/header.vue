@@ -2,8 +2,12 @@
   <div class="header-box">
     <van-row class="header-row">
       <van-col span="3" @click="operateMenu"><img class="img-box" src="../assets/img/icon/menu.png" alt=""></van-col>
-      <van-col span="18">
-        <van-search v-model="searchValue" placeholder="请输入搜索关键词"/>
+      <van-col span="18" @click="showSearchPage">
+        <div class="search-box">
+          <img src="../assets/img/icon/search.png" alt="" class="">
+<!--          <van-icon name="search" class=""/>-->
+          <span class="">{{searchKeywords}}</span>
+        </div>
       </van-col>
       <van-col span="3" @click="operateMail">
         <div class="img-box">
@@ -12,8 +16,15 @@
       </van-col>
     </van-row>
 
-    <van-popup v-model="showMenu" position="left" :style="{ width: '70%',height:'100%' }">
-      wode
+    <van-popup v-model="showMenu" position="left" class="menu-popup" :style="{ width: '70%',height:'100%' }">
+      <van-row class="top">
+        <van-col span="12">
+          <van-icon name="cross" />
+        </van-col>
+        <van-col span="12">
+
+        </van-col>
+      </van-row>
     </van-popup>
   </div>
 </template>
@@ -24,11 +35,15 @@
       return {
         searchValue: '',
         showMenu: false,
+        searchKeywords: '搜索关键字'
       }
     },
     methods: {
       operateMenu() {
         this.showMenu = !this.showMenu
+      },
+      showSearchPage(){
+        this.$toast.fail('等会做');
       },
       operateMail() {
         this.$toast.fail('系统建设中');
@@ -40,40 +55,61 @@
 <style lang="less" scoped>
   .header-box {
     background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
     .header-row {
       .van-col {
-        height: 54px;
-        line-height: 54px;
+        height: 60px;
+        line-height: 60px;
         text-align: center;
 
-        .img-box{
-          width: 32px;
-          height: 32px;
+        .img-box {
+          width: 34px;
+          height: 34px;
           margin-top: 10px;
-          img{
+
+          img {
             width: 100%;
             height: 100%;
           }
-
         }
 
-        .van-search__content {
+        .search-box {
           background-color: #eef3ef;
-          border-radius: 4px;
-        }
-
-        .van-search .van-cell {
+          border-radius: 14px;
+          margin: 10px 10px 10px 0;
+          height: 40px;
+          line-height: 40px;
+          color: #9ea39d;
+          font-size: 18px;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          .van-icon {
+            font-size: 28px;
+            line-height: 30px;
+            top: 4px;
+          }
+          img{
+            width: 30px;
+            height: 30px;
+            padding-top: 5px;
+          }
+          span {
+          }
         }
       }
     }
   }
 </style>
 <style lang="less">
-  .header-box{
-    .header-row{
-      .img-box{
-        .van-badge{
+  .header-box {
+    .header-row {
+      .img-box {
+        .van-badge {
           right: 4px;
           width: 22px;
           height: 22px;
