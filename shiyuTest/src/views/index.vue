@@ -1,5 +1,6 @@
 <template>
   <div class="home-page">
+    <Header></Header>
     <h2 class="title">全部好物</h2>
     <van-sticky :offset-top="58" class="state-box">
       <div class="box clearfloat">
@@ -28,15 +29,18 @@
         <van-icon name="shopping-cart-o" v-else/>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+  import Footer from '@/components/footer.vue'
+  import Header from '@/components/header.vue'
   import listItem from '@/components/list.vue'
   import {getList, getState} from '@/http/home'
 
   export default {
-    components: {'list-item': listItem},
+    components: {'list-item': listItem,Header, Footer},
     data() {
       return {
         stateArr: [],
@@ -87,6 +91,7 @@
 <style lang="less" scoped>
   .home-page {
     background-color: #fff;
+    margin: 60px auto 70px;
 
     .title {
       padding: 10px;
@@ -139,16 +144,16 @@
       position: fixed;
       bottom: 100px;
       right: 20px;
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 100%;
-      width: 70px;
-      height: 70px;
-      line-height: 70px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
       box-shadow: 2px 2px 2px #a0a2a8;
 
       .car-box {
         text-align: center;
-        font-size: 40px;
+        font-size: 26px;
         color: #0b090a;
       }
 
@@ -163,7 +168,9 @@
         background-color: #fff;
       }
     }
-
+    .van-sticky--fixed{
+      z-index: 9;
+    }
     .float-car-box {
       .van-badge {
         font-size: 18px;

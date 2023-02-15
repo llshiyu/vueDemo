@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
     <router-view/>
-    <Footer></Footer>
   </div>
 </template>
 
@@ -20,7 +18,8 @@
   #app {
     min-height: 100vh;
     overflow: hidden;
-    margin: 60px auto 70px;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #fff;
   }
 </style>

@@ -35,7 +35,7 @@
       return {
         searchValue: '',
         showMenu: false,
-        searchKeywords: '搜索关键字'
+        searchKeywords: '叶璇葉璇'
       }
     },
     methods: {
@@ -43,7 +43,7 @@
         this.showMenu = !this.showMenu
       },
       showSearchPage(){
-        this.$toast.fail('等会做');
+        this.$router.push('/search')
       },
       operateMail() {
         this.$toast.fail('系统建设中');

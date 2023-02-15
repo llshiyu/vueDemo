@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import homeIndex from '@/views/index'
 
 Vue.use(Router)
 
@@ -9,7 +8,12 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: homeIndex
+      component: resolve => require(['@/views/index'], resolve)
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: resolve => require(['@/views/search'], resolve)
     }
   ]
 })
