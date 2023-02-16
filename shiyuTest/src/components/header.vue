@@ -6,7 +6,8 @@
         <div class="search-box">
           <img src="../assets/img/icon/search.png" alt="" class="">
 <!--          <van-icon name="search" class=""/>-->
-          <span class="">{{searchKeywords}}</span>
+          <span class="search-value" v-if="searchValue">{{searchValue}}</span>
+          <span class="" v-else>{{searchKeywords}}</span>
         </div>
       </van-col>
       <van-col span="3" @click="operateMail">
@@ -38,12 +39,17 @@
         searchKeywords: '叶璇葉璇'
       }
     },
+    mounted(){
+      if(this.$route.params&&this.$route.params['id']){
+        this.searchValue = this.$route.params['id']
+      }
+    },
     methods: {
       operateMenu() {
         this.showMenu = !this.showMenu
       },
       showSearchPage(){
-        this.$router.push('/search')
+        this.$router.push({path:'/search',query:{id:this.searchValue||this.searchKeywords}})
       },
       operateMail() {
         this.$toast.fail('系统建设中');
@@ -100,6 +106,9 @@
             padding-top: 5px;
           }
           span {
+            &.search-value{
+              color: #191919;
+            }
           }
         }
       }
