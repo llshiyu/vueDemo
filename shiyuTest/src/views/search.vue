@@ -12,7 +12,8 @@
       <div class="history-box line-box flex-box" v-if="historyArr.length">
         <div class="title">历史</div>
         <div class="cont flex1">
-          <span class="item" @click="clickHistory(item)" v-for="(item,index) in historyArr" :key="index">{{item.value}}</span>
+          <span class="item" @click="clickHistory(item)" v-for="(item,index) in historyArr"
+                :key="index">{{item.value}}</span>
           <van-icon name="delete-o" @click="delHistory"/>
         </div>
       </div>
@@ -20,46 +21,73 @@
       <div class="suggest-box line-box flex-box">
         <div class="title">建议</div>
         <div class="cont flex1">
-          <span class="item" v-for="(item,index) in suggestArr" :key="index">{{item.value}}</span>
+          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr1" :key="index+item.value+'01'">{{item.value}}</span>
           <van-icon name="replay" @click="replaySuggest"/>
+          <br>
+          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr2" :key="index+item.value+'02'">{{item.value}}</span>
         </div>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
+  import {getSuggest, getHistory} from '@/http/home'
+
   export default {
     data() {
       return {
         value: '',
         placeholder: '叶璇葉璇',
-        historyArr: [{key: '001', value: '豆品'}],
-        suggestArr: [{key: '01', value: '狂飙'}]
+        historyArr: [],
+        suggestArr1: [],
+        suggestArr2: []
       }
     },
     mounted() {
+      this.getSuggestData();
+      this.getHistoryData();
       this.placeholder = this.$route.query['id']
       this.$nextTick(() => {
         this.$refs.getFocus.querySelector('input').focus()
       })
     },
     methods: {
+      getSuggestData() {
+        getSuggest({}, (res) => {
+          this.suggestArr1 = [];
+          this.suggestArr2 = [];
+          res.data.forEach((value, i) => {
+            if (i < 4) this.suggestArr1.push(value);
+            else this.suggestArr2.push(value);
+          })
+        }, (err) => {
+          this.$toast.fail('网络异常，请稍后重试');
+        })
+      },
+      getHistoryData(){
+        getHistory({}, (res) => {
+          this.historyArr = res.data;
+        }, (err) => {
+          this.$toast.fail('网络异常，请稍后重试');
+        })
+      },
       onSearch(val) {
         if (!val) val = this.placeholder
-        this.$toast(val);
+        this.$router.push({name: 'index', params: {id: val}});
       },
       onCancel() {
         this.$router.go(-1)
       },
-      clickHistory(item){
-        this.$router.push({ name: 'index', params: { id: item.value } });
+      clickHistory(item) {
+        this.$router.push({name: 'index', params: {id: item.value}});
       },
-      delHistory(){
+      delHistory() {
         this.historyArr = []
       },
-      replaySuggest(){
-
+      replaySuggest() {
+        this.getSuggestData();
       }
     }
   }
@@ -77,6 +105,7 @@
         line-height: 40px;
         color: #9ea39d;
         text-align: center;
+
         .van-cell {
           line-height: 40px;
         }
@@ -89,12 +118,14 @@
         margin-right: 8px;
       }
     }
-    .search-cont{
-      .line-box{
+
+    .search-cont {
+      .line-box {
         line-height: 30px;
         padding: 10px 0 0 10px;
       }
-      .title{
+
+      .title {
         font-size: 16px;
         color: #191919;
         width: 50px;
@@ -102,7 +133,8 @@
         padding-bottom: 10px;
         padding-top: 10px;
       }
-      .cont{
+
+      .cont {
         padding-bottom: 10px;
         padding-right: 20px;
         font-size: 16px;
@@ -114,7 +146,8 @@
         &::-webkit-scrollbar {
           display: none; /* Chrome Safari */
         }
-        .item{
+
+        .item {
           margin-top: 10px;
           background-color: #f7f7f7;
           color: #191919;
@@ -125,14 +158,16 @@
           display: inline-block;
           padding: 0 8px;
         }
-        .van-icon{
+
+        .van-icon {
           border-left: 1px solid #e0e0e0;
           padding-left: 10px;
           color: #b2b2b2;
           font-size: 18px;
         }
       }
-      .history-box{
+
+      .history-box {
         min-width: 100%;
         overflow-x: scroll;
         scrollbar-width: none; /* firefox */
@@ -141,14 +176,17 @@
         &::-webkit-scrollbar {
           display: none; /* Chrome Safari */
         }
-        .cont{
-          white-space:nowrap;
+
+        .cont {
+          white-space: nowrap;
 
         }
       }
-      .suggest-box{
-        .cont{
+
+      .suggest-box {
+        .cont {
           border-bottom: none;
+          white-space: nowrap;
         }
       }
 

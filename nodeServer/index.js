@@ -22,6 +22,7 @@ server.on('request', (req, res) => {
         }
         case('/getState'):pathUrl = path.join(__dirname, './file/state.json');break;
         case('/getSuggest'):pathUrl = path.join(__dirname, './file/suggest.json');break;
+        case('/getHistory'):pathUrl = path.join(__dirname, './file/history.json');break;
         default:pathUrl = path.join(__dirname, './file/list.json');break;
     }
     optFile.readfile(pathUrl, (err, dataStr) => {

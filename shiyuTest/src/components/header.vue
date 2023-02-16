@@ -3,7 +3,7 @@
     <van-row class="header-row">
       <van-col span="3" @click="operateMenu"><img class="img-box" src="../assets/img/icon/menu.png" alt=""></van-col>
       <van-col span="18" @click="showSearchPage">
-        <div class="search-box">
+        <div class="search-box" :class="searchValue?'left-style':''">
           <img src="../assets/img/icon/search.png" alt="" class="">
 <!--          <van-icon name="search" class=""/>-->
           <span class="search-value" v-if="searchValue">{{searchValue}}</span>
@@ -49,7 +49,7 @@
         this.showMenu = !this.showMenu
       },
       showSearchPage(){
-        this.$router.push({path:'/search',query:{id:this.searchValue||this.searchKeywords}})
+        this.$router.push({path:'/search',query:{id:this.searchKeywords}})
       },
       operateMail() {
         this.$toast.fail('系统建设中');
@@ -95,6 +95,11 @@
           text-align: center;
           display: flex;
           justify-content: center;
+          &.left-style{
+            text-align: left;
+            justify-content: left;
+            padding-left: 10px;
+          }
           .van-icon {
             font-size: 28px;
             line-height: 30px;
