@@ -35,3 +35,13 @@ export const getHistory = (params, successCallback, failureCallback) => {
     if (failureCallback)failureCallback(error)
   })
 }
+
+
+// add历史
+export const addHistory = (params, successCallback, failureCallback) => {
+  postRequest(`${BSERURL}/addHistory`, params, res => (
+    successCallback(res)
+  ), error => {
+    if (failureCallback)failureCallback(error)
+  })
+}

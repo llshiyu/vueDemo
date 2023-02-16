@@ -16,18 +16,28 @@ server.on('request', (req, res) => {
     const url = req.url;
     let pathUrl;
     switch (url) {
-        case('/getList'):{
+        case('/getList'):
             pathUrl = path.join(__dirname, './file/list.json');
             break;
-        }
-        case('/getState'):pathUrl = path.join(__dirname, './file/state.json');break;
-        case('/getSuggest'):pathUrl = path.join(__dirname, './file/suggest.json');break;
-        case('/getHistory'):pathUrl = path.join(__dirname, './file/history.json');break;
-        default:pathUrl = path.join(__dirname, './file/list.json');break;
+        case('/getState'):
+            pathUrl = path.join(__dirname, './file/state.json');
+            break;
+        case('/getSuggest'):
+            pathUrl = path.join(__dirname, './file/suggest.json');
+            break;
+        case('/getHistory'):
+            pathUrl = path.join(__dirname, './file/history.json');
+            break;
+        case('/addHistory'):
+            pathUrl = path.join(__dirname, './file/history.json');
+            break;
+        default:
+            pathUrl = path.join(__dirname, './file/list.json');
+            break;
     }
     optFile.readfile(pathUrl, (err, dataStr) => {
         if (err) return res.end('没有找到文件')
-        if(url==='/getList'){
+        if (url === '/addHistory') {
             let postData = '';
             // 接收数据流 stream
             req.on('data', chunk => {
@@ -36,7 +46,16 @@ server.on('request', (req, res) => {
             });
             // 接收完成
             req.on('end', () => {
-               console.log(postData);
+                if(postData){
+                    let jsonData = {
+                        "code": 200,
+                        "data": eval("(" + postData + ")")
+                    };
+                    optFile.writefile(pathUrl, JSON.stringify(jsonData), function () {
+                        console.log("数据写入成功！");
+                    });
+                }
+
             })
         }
 

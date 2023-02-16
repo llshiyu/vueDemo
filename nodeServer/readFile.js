@@ -9,8 +9,16 @@ module.exports = {
     },
 
     readfile: function (path, recall) {//异步执行
-        fs.readFile(path, function (err, data) {
+        fs.readFile(path,'utf8', function (err, data) {
             recall(err, data);   //回调recall函数，它是闭包函数，它会存储原来的response对象
+        });
+    },
+    writefile: function(path,data,recall){
+        fs.writeFile(path, data,'utf8', function(err) {
+            if (err) {
+                return console.error(err);
+            }
+            recall()
         });
     },
 

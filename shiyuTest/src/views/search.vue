@@ -13,7 +13,7 @@
         <div class="title">历史</div>
         <div class="cont flex1">
           <span class="item" @click="clickHistory(item)" v-for="(item,index) in historyArr"
-                :key="index">{{item.value}}</span>
+                :key="index">{{item}}</span>
           <van-icon name="delete-o" @click="delHistory"/>
         </div>
       </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import {getSuggest, getHistory} from '@/http/home'
+  import {getSuggest, getHistory, addHistory} from '@/http/home'
 
   export default {
     data() {
@@ -73,18 +73,30 @@
           this.$toast.fail('网络异常，请稍后重试');
         })
       },
+      addHistoryData(value){
+        addHistory(value,res=>{
+          console.log(res);
+        }, (err) => {
+          this.$toast.fail('网络异常，请稍后重试');
+        })
+      },
       onSearch(val) {
         if (!val) val = this.placeholder
+        this.historyArr.unshift(val);
+        this.addHistoryData(this.historyArr)
         this.$router.push({name: 'index', params: {id: val}});
       },
       onCancel() {
         this.$router.go(-1)
       },
       clickHistory(item) {
+        this.historyArr.unshift(item.value);
+        this.addHistoryData(this.historyArr)
         this.$router.push({name: 'index', params: {id: item.value}});
       },
       delHistory() {
         this.historyArr = []
+        this.addHistoryData(this.historyArr)
       },
       replaySuggest() {
         this.getSuggestData();
