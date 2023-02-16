@@ -34,7 +34,7 @@
       return {
         value: '',
         placeholder: '叶璇葉璇',
-        historyArr: [{key: '001', value: '豆品'},{key: '001', value: '豆品豆品豆品'},{key: '001', value: '豆品'},{key: '001', value: '豆品豆品豆品'},{key: '001', value: '豆品'},{key: '001', value: '豆品豆品豆品'},{key: '001', value: '豆品'},{key: '001', value: '豆品豆品豆品'},{key: '001', value: '豆品'}],
+        historyArr: [{key: '001', value: '豆品'}],
         suggestArr: [{key: '01', value: '狂飙'}]
       }
     },

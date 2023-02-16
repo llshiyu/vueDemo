@@ -57,7 +57,7 @@
     },
     methods: {
       getListData() {
-        getList({}, (res) => {
+        getList({key:this.stateActive}, (res) => {
           this.listData = res.data
           this.isLoading = false
         }, (err) => {

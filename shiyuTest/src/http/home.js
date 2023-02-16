@@ -3,7 +3,7 @@ import { BSERURL } from '@/config'
 
 // 获取列表
 export const getList = (params, successCallback, failureCallback) => {
-  getRequest(`${BSERURL}/getList`, params, res => (
+  postRequest(`${BSERURL}/getList`, params, res => (
     successCallback(res)
   ), error => {
     if (failureCallback)failureCallback(error)
