@@ -10,7 +10,7 @@
       </div>
     </van-sticky>
 
-    <div class="list-box" id="tabContainer">
+    <div class="list-box" id="tabContainer" v-if="listData.length">
       <van-pull-refresh
         v-model="isLoading"
         success-text="刷新成功"
@@ -20,6 +20,7 @@
                    @addCar="addCar"></list-item>
       </van-pull-refresh>
     </div>
+    <van-empty image="search" v-else description="暂无搜索结果" />
 
     <div class="float-car-box" @click="goCar">
       <div class="car-box">
@@ -48,16 +49,30 @@
         listArr: [],
         listData: [],
         isLoading: false,
-        carNumber: 0
+        carNumber: 0,
+        searchName:''
       }
     },
     mounted() {
       this.getListData()
       this.getStateData()
+      if(this.$route.params&&this.$route.params['id']){
+        this.searchName = this.$route.params['id'];
+        this.getListDataName();
+        this.stateActive = -1;
+      }
     },
     methods: {
       getListData() {
-        getList({key:this.stateActive}, (res) => {
+        getList({}, (res) => {
+          this.listData = res.data
+          this.isLoading = false
+        }, (err) => {
+          this.$toast.fail('网络异常，请稍后重试');
+        })
+      },
+      getListDataName() {
+        getList({name:this.searchName}, (res) => {
           this.listData = res.data
           this.isLoading = false
         }, (err) => {
@@ -73,9 +88,16 @@
       },
       stateClick(item) {
         this.stateActive = item.key;
-        this.getListData();
+        if(item.value==='全部'){
+          this.getListData()
+        }else{
+          this.searchName = item.value;
+          this.getListDataName();
+        }
       },
       onRefresh() {
+        this.searchName = '';
+        this.stateActive = 1;
         this.getListData()
       },
       goCar() {

@@ -31,6 +31,8 @@
 </template>
 
 <script>
+  import {getList} from '@/http/home'
+
   export default {
     data() {
       return {
@@ -46,9 +48,11 @@
     },
     methods: {
       operateMenu() {
-        this.showMenu = !this.showMenu
+        this.$toast.fail('系统建设中');
+        // this.showMenu = !this.showMenu
       },
       showSearchPage(){
+        console.log(this.searchValue,this.searchKeywords);
         this.$router.push({path:'/search',query:{id:this.searchKeywords}})
       },
       operateMail() {

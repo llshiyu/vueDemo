@@ -7,7 +7,7 @@ import '@/assets/css/common.less'
 import {
   Toast,
   Dialog,
-  Button,
+  Empty,
   Icon,
   Image as VanImage,
   Col, Row,
@@ -30,7 +30,7 @@ import {
 Vue.config.productionTip = false
 Vue.use(Toast)
   .use(Dialog)
-  .use(Button)
+  .use(Empty)
   .use(Icon)
   .use(VanImage)
   .use(Col)

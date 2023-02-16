@@ -1,8 +1,8 @@
 <template>
   <div class="list-item-box">
     <van-image
-      width="156"
-      height="156"
+      width="160"
+      height="160"
       lazy-load
       :src="item.img"
     />
@@ -200,6 +200,7 @@
 
     .group-box {
       text-align: left;
+      margin-top: -10px;
 
       span {
         background-color: #fcf2e6;

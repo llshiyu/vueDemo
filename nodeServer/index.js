@@ -46,22 +46,54 @@ server.on('request', (req, res) => {
             });
             // 接收完成
             req.on('end', () => {
-                if(postData){
+                if (postData) {
                     let jsonData = {
                         "code": 200,
-                        "data": eval("(" + postData + ")")
+                        "data": eval("(" + postData + ")") //string转json
                     };
                     optFile.writefile(pathUrl, JSON.stringify(jsonData), function () {
                         console.log("数据写入成功！");
                     });
                 }
-
             })
         }
+        if (url === '/getList') {
+            let postData = '';
+            let dataS = '';
+            dataS += dataStr;
+            req.on('data', chunk => {
+                postData += chunk.toString()
+            });
+            // 接收完成
+            req.on('end', () => {
+                if (postData) {
+                    let name = eval("(" + postData + ")").name;
+                    let dataArr = eval("(" + dataS + ")").data;
+                    console.log('name=',name);
+                    if(name){
+                        let newData = eval("(" + dataS + ")");
+                        newData.data = searchNameList(name, dataArr);
+                        dataStr = JSON.stringify(newData)
+                    }
+                }
+            })
+        }
+        setTimeout(()=>{
+            res.end(dataStr);
 
-        res.end(dataStr);
+        })
     });
-})
+});
 server.listen(80, () => {
     console.log('running at http://localhost or http://127.0.0.1');
-})
+});
+
+function searchNameList(name, list) {
+    let array = [];
+    list.forEach(item => {
+        if (item.title.indexOf(name) > -1) {
+            array.push(item)
+        }
+    });
+    return array
+}

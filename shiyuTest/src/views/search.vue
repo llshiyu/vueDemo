@@ -21,10 +21,12 @@
       <div class="suggest-box line-box flex-box">
         <div class="title">建议</div>
         <div class="cont flex1">
-          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr1" :key="index+item.value+'01'">{{item.value}}</span>
+          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr1"
+                :key="index+item.value+'01'">{{item.value}}</span>
           <van-icon name="replay" @click="replaySuggest"/>
           <br>
-          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr2" :key="index+item.value+'02'">{{item.value}}</span>
+          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr2"
+                :key="index+item.value+'02'">{{item.value}}</span>
         </div>
       </div>
 
@@ -66,15 +68,15 @@
           this.$toast.fail('网络异常，请稍后重试');
         })
       },
-      getHistoryData(){
+      getHistoryData() {
         getHistory({}, (res) => {
           this.historyArr = res.data;
         }, (err) => {
           this.$toast.fail('网络异常，请稍后重试');
         })
       },
-      addHistoryData(value){
-        addHistory(value,res=>{
+      addHistoryData(value) {
+        addHistory(value, res => {
           console.log(res);
         }, (err) => {
           this.$toast.fail('网络异常，请稍后重试');
@@ -82,17 +84,21 @@
       },
       onSearch(val) {
         if (!val) val = this.placeholder
-        this.historyArr.unshift(val);
-        this.addHistoryData(this.historyArr)
-        this.$router.push({name: 'index', params: {id: val}});
+        if (val){
+          this.historyArr.unshift(val);
+          this.addHistoryData(this.historyArr)
+          this.$router.push({name: 'index', params: {id: val}});
+        }
       },
       onCancel() {
         this.$router.go(-1)
       },
       clickHistory(item) {
-        this.historyArr.unshift(item.value);
-        this.addHistoryData(this.historyArr)
-        this.$router.push({name: 'index', params: {id: item.value}});
+        if (item){
+          this.historyArr.unshift(item);
+          this.addHistoryData(this.historyArr)
+          this.$router.push({name: 'index', params: {id: item}});
+        }
       },
       delHistory() {
         this.historyArr = []
