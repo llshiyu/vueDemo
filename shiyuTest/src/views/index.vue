@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <Header></Header>
+    <Header :searchValue="searchName"></Header>
     <h2 class="title">全部好物</h2>
     <van-sticky :offset-top="58" class="state-box">
       <div class="box clearfloat">
@@ -39,11 +39,13 @@
   import Header from '@/components/header.vue'
   import listItem from '@/components/list.vue'
   import {getList, getState} from '@/http/home'
+  import {store} from "../store/store";
 
   export default {
     components: {'list-item': listItem,Header, Footer},
     data() {
       return {
+        store,
         stateArr: [],
         stateActive: 1,
         listArr: [],
@@ -89,8 +91,10 @@
       stateClick(item) {
         this.stateActive = item.key;
         if(item.value==='全部'){
+          this.searchName = '';
           this.getListData()
         }else{
+          store.addHistoryData(item.value)
           this.searchName = item.value;
           this.getListDataName();
         }

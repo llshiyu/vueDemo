@@ -9,10 +9,10 @@
       @cancel="onCancel"
     />
     <div class="search-cont">
-      <div class="history-box line-box flex-box" v-if="historyArr.length">
+      <div class="history-box line-box flex-box" v-if="store.historyArr.length">
         <div class="title">历史</div>
         <div class="cont flex1">
-          <span class="item" @click="clickHistory(item)" v-for="(item,index) in historyArr"
+          <span class="item" @click="clickHistory(item)" v-for="(item,index) in store.historyArr"
                 :key="index">{{item}}</span>
           <van-icon name="delete-o" @click="delHistory"/>
         </div>
@@ -21,11 +21,11 @@
       <div class="suggest-box line-box flex-box">
         <div class="title">建议</div>
         <div class="cont flex1">
-          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr1"
+          <span class="item" @click="clickHistory(item.value)" v-for="(item,index) in suggestArr1"
                 :key="index+item.value+'01'">{{item.value}}</span>
           <van-icon name="replay" @click="replaySuggest"/>
           <br>
-          <span class="item" @click="clickHistory(item)" v-for="(item,index) in suggestArr2"
+          <span class="item" @click="clickHistory(item.value)" v-for="(item,index) in suggestArr2"
                 :key="index+item.value+'02'">{{item.value}}</span>
         </div>
       </div>
@@ -35,22 +35,24 @@
 </template>
 
 <script>
-  import {getSuggest, getHistory, addHistory} from '@/http/home'
+  import {getSuggest} from '@/http/home'
+  import {store} from "../store/store";
 
   export default {
     data() {
       return {
+        store,
         value: '',
         placeholder: '叶璇葉璇',
-        historyArr: [],
         suggestArr1: [],
         suggestArr2: []
       }
     },
     mounted() {
       this.getSuggestData();
-      this.getHistoryData();
-      this.placeholder = this.$route.query['id']
+      store.getHistoryData();
+
+      this.$route.query['type']?this.value = this.$route.query['id']:this.placeholder = this.$route.query['id']
       this.$nextTick(() => {
         this.$refs.getFocus.querySelector('input').focus()
       })
@@ -68,41 +70,25 @@
           this.$toast.fail('网络异常，请稍后重试');
         })
       },
-      getHistoryData() {
-        getHistory({}, (res) => {
-          this.historyArr = res.data;
-        }, (err) => {
-          this.$toast.fail('网络异常，请稍后重试');
-        })
-      },
-      addHistoryData(value) {
-        addHistory(value, res => {
-          console.log(res);
-        }, (err) => {
-          this.$toast.fail('网络异常，请稍后重试');
-        })
-      },
+
       onSearch(val) {
-        if (!val) val = this.placeholder
-        if (val){
-          this.historyArr.unshift(val);
-          this.addHistoryData(this.historyArr)
+        if (!val) this.$router.push({name: 'index'});
+        if (val) {
+          store.addHistoryData(val)
           this.$router.push({name: 'index', params: {id: val}});
         }
       },
       onCancel() {
         this.$router.go(-1)
       },
-      clickHistory(item) {
-        if (item){
-          this.historyArr.unshift(item);
-          this.addHistoryData(this.historyArr)
-          this.$router.push({name: 'index', params: {id: item}});
+      clickHistory(name) {
+        if (name) {
+          store.addHistoryData(name)
+          this.$router.push({name: 'index', params: {id: name}});
         }
       },
       delHistory() {
-        this.historyArr = []
-        this.addHistoryData(this.historyArr)
+        store.addHistoryData('')
       },
       replaySuggest() {
         this.getSuggestData();

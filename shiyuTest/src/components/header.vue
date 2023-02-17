@@ -31,20 +31,20 @@
 </template>
 
 <script>
-  import {getList} from '@/http/home'
 
   export default {
     data() {
       return {
-        searchValue: '',
         showMenu: false,
         searchKeywords: '叶璇葉璇'
       }
     },
-    mounted(){
-      if(this.$route.params&&this.$route.params['id']){
-        this.searchValue = this.$route.params['id']
+    props:{
+      searchValue: {
+        default: ''
       }
+    },
+    mounted(){
     },
     methods: {
       operateMenu() {
@@ -52,8 +52,7 @@
         // this.showMenu = !this.showMenu
       },
       showSearchPage(){
-        console.log(this.searchValue,this.searchKeywords);
-        this.$router.push({path:'/search',query:{id:this.searchKeywords}})
+        this.$router.push({path:'/search',query:{id:this.searchValue || this.searchKeywords,type:!!this.searchValue}})
       },
       operateMail() {
         this.$toast.fail('系统建设中');
