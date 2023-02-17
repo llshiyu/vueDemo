@@ -18,12 +18,9 @@ import {
   Badge,
   Lazyload,
   List,
-  Skeleton,
   Sticky,
-  Tag,
   Grid, GridItem,
   Tabbar, TabbarItem,
-  NavBar,
   Sku
 } from 'vant'
 
@@ -44,14 +41,11 @@ Vue.use(Toast)
     lazyComponent: true,
   })
   .use(List)
-  .use(Skeleton)
   .use(Sticky)
-  .use(Tag)
   .use(Grid)
   .use(GridItem)
   .use(Tabbar)
   .use(TabbarItem)
-  .use(NavBar)
   .use(Sku)
 
 /* eslint-disable no-new */
